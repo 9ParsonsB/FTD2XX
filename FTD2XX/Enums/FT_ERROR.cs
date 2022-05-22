@@ -1,4 +1,4 @@
-namespace FTD2XX.Constants;
+namespace FTD2XX.Enums;
 
 /// <summary>
 /// Error states not supported by FTD2XX DLL.

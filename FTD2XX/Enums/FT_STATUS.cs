@@ -1,4 +1,4 @@
-namespace FTD2XX.Constants;
+namespace FTD2XX.Enums;
 
 /// <summary>
 /// Status values for FTDI devices.

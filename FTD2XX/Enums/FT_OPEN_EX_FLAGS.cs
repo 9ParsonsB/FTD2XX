@@ -1,6 +1,6 @@
 using System;
 
-namespace FTD2XX.Constants;
+namespace FTD2XX.Enums;
 
 /// <summary>
 /// Flags for FT_OpenEx

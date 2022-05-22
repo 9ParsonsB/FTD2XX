@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FTD2XX
+﻿namespace FTD2XX.Enums
 {
     public enum Parity
     {

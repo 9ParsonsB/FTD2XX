@@ -4,16 +4,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using FTD2XX.Constants;
+using FTD2XX.Enums;
 
 namespace FTD2XX
 {
     // [DebuggerNonUserCode()]
     public class Device
     {
-		private static Internal.Structures.ftdi_context _H = new Internal.Structures.ftdi_context();
+		private static ftdi_context _H = new ftdi_context();
 		static Device()
 		{
-			Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_init(ref _H);
+			FT_STATUS status = Internal.Methods.ftdi_init(ref _H);
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 
@@ -36,12 +38,12 @@ namespace FTD2XX
         {
 			if (_Desc != null)
 			{
-				Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_usb_open_string(ref _H, _Desc);
+				FT_STATUS status = Internal.Methods.ftdi_usb_open_string(ref _H, _Desc);
 				Internal.Methods.ftdi_status_to_exception(status, ref _H);
 			}
 			else
 			{
-				Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_usb_open(ref _H, VendorID, ProductID);
+				FT_STATUS status = Internal.Methods.ftdi_usb_open(ref _H, VendorID, ProductID);
 				Internal.Methods.ftdi_status_to_exception(status, ref _H);
 			}
 		}
@@ -70,13 +72,13 @@ namespace FTD2XX
 
 		public void Reset()
 		{
-			Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_usb_reset(ref _H);
+			FT_STATUS status = Internal.Methods.ftdi_usb_reset(ref _H);
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 
 		public void SetBaudRate(int baudRate)
 		{
-			Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_set_baudrate(ref _H, baudRate);  // set baud rate
+			FT_STATUS status = Internal.Methods.ftdi_set_baudrate(ref _H, baudRate);  // set baud rate
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 
@@ -86,22 +88,22 @@ namespace FTD2XX
 
 		public void SetDataCharacteristics(BitsPerWord bits, StopBits stopBits, Parity parity)
 		{
-			Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_set_line_property(ref _H, bits, stopBits, parity);
+			FT_STATUS status = Internal.Methods.ftdi_set_line_property(ref _H, bits, stopBits, parity);
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 		public void SetFlowControl(FlowControl control, byte uXon, byte uXoff)
 		{
-			// Internal.Constants.FT_STATUS status = Internal.Methods.FT_SetFlowControl(mvarHandle, control, uXon, uXoff);
+			// FT_STATUS status = Internal.Methods.FT_SetFlowControl(mvarHandle, control, uXon, uXoff);
 			// Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 		public void ClearRTS()
 		{
-			// Internal.Constants.FT_STATUS status = Internal.Methods.FT_ClrRts(mvarHandle);
+			// FT_STATUS status = Internal.Methods.FT_ClrRts(mvarHandle);
 			// Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 		public void Purge(PurgeBuffer buffers = PurgeBuffer.Both)
 		{
-			// Internal.Constants.FT_STATUS status = Internal.Methods.FT_Purge(mvarHandle, buffers);
+			// FT_STATUS status = Internal.Methods.FT_Purge(mvarHandle, buffers);
 			// Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 
@@ -117,13 +119,13 @@ namespace FTD2XX
                 {
                     case true:
                     {
-                        Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_set_line_property2(ref _H, _bits, _stopBits, _parity, true);
+                        FT_STATUS status = Internal.Methods.ftdi_set_line_property2(ref _H, _bits, _stopBits, _parity, true);
                         Internal.Methods.ftdi_status_to_exception(status, ref _H);
                         break;
                     }
                     case false:
                     {
-                        Internal.Constants.FT_STATUS status = Internal.Methods.ftdi_set_line_property2(ref _H, _bits, _stopBits, _parity, false);
+                        FT_STATUS status = Internal.Methods.ftdi_set_line_property2(ref _H, _bits, _stopBits, _parity, false);
 							Internal.Methods.ftdi_status_to_exception(status, ref _H);
 							break;
                     }
@@ -136,7 +138,7 @@ namespace FTD2XX
 		// public static int GetDeviceCount()
   //       {
   //           int numDevs = 0;
-  //           Internal.Constants.FT_STATUS status = Internal.Methods.FT_ListDevices(ref numDevs, IntPtr.Zero, Internal.Constants.FT_LISTDEVICES.ListNumberOnly);
+  //           FT_STATUS status = Internal.Methods.FT_ListDevices(ref numDevs, IntPtr.Zero, Internal.Constants.FT_LISTDEVICES.ListNumberOnly);
   //           Internal.Methods.ftdi_status_to_exception(status, ref _H);
   //           return numDevs;
   //       }
