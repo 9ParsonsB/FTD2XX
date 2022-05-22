@@ -5,7 +5,7 @@ namespace FTD2XX.Internal.Linux
 {
 	internal static class Methods
 	{
-		private const string LIBRARY_FILENAME = "ftdi";
+		private const string LIBRARY_FILENAME = "libftdi1";
 
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern Constants.FT_STATUS ftdi_init(ref Internal.Structures.ftdi_context ftdi);
@@ -38,5 +38,8 @@ namespace FTD2XX.Internal.Linux
 
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern Constants.FT_STATUS ftdi_usb_open_string(ref Structures.ftdi_context ftdi, string desc);
+		
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern unsafe Constants.FT_STATUS ftdi_usb_find_all(ref Structures.ftdi_context ftdi, Structures.ftdi_device_list* devList, uint vendor, uint product );
 	}
 }
