@@ -3,7 +3,7 @@ namespace LibFtdiDotNet.Enums;
 /// <summary>
 ///  Port interface code for FT2232C 
 /// </summary>
-public enum Interface : uint
+public enum FtdiInterface : uint
 {
     INTERFACE_ANY = 0,
     INTERFACE_A = 1,
