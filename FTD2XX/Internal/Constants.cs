@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FTD2XX.Internal
 {
-    internal static class Constants
+    public static class Constants
     {
         /// <summary>
         /// Return statuses for FTD2XX functions.
