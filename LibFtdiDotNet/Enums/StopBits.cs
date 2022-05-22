@@ -2,7 +2,8 @@
 {
     public enum StopBits : byte
     {
-        One = 1,
-        Two = 2
+    STOP_BIT_1 = 0,
+    STOP_BIT_15 = 1,
+    STOP_BIT_2 = 2
     }
 }

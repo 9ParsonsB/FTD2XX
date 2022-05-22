@@ -16,9 +16,9 @@ namespace LibFtdiDotNet.Internal.Linux
 		public static extern FT_STATUS ftdi_usb_open(ref ftdi_context ftdi, int vendor, int product);
 
 		[DllImport(LIBRARY_FILENAME)]
-		public static extern FT_STATUS ftdi_read_data(ref ftdi_context  /*struct ftdi_context*/ ftdi, IntPtr buf, int size);
+		public static extern unsafe FT_STATUS ftdi_read_data(ref ftdi_context  /*struct ftdi_context*/ ftdi, byte* buf, int size);
 		[DllImport(LIBRARY_FILENAME)]
-		public static extern int ftdi_write_data(ref ftdi_context  /*struct ftdi_context*/ ftdi, IntPtr buf, int size);
+		public static extern unsafe int ftdi_write_data(ref ftdi_context  /*struct ftdi_context*/ ftdi, byte* buf, int size);
 
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern FT_STATUS ftdi_usb_close(ref ftdi_context ftdi);
@@ -42,7 +42,7 @@ namespace LibFtdiDotNet.Internal.Linux
 		public static extern FT_STATUS ftdi_usb_open_string(ref ftdi_context ftdi, string desc);
 		
 		[DllImport(LIBRARY_FILENAME)]
-		public static extern unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context ftdi, ftdi_device_list* devList, uint vendor, uint product );
+		public static extern unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context ftdi, ftdi_device_list* devList, int vendor, int product );
 		
 		
 
@@ -71,6 +71,37 @@ namespace LibFtdiDotNet.Internal.Linux
 
 		[DllImport(LIBRARY_FILENAME)]
 		public static extern FT_STATUS ftdi_usb_open_dev(ref ftdi_context ftdi, IntPtr dev);
+		
+		
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_usb_purge_buffers(ref ftdi_context ftdi);
+		
+		
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_read_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
 
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_read_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
+
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_write_data_set_chunksize(ref ftdi_context ftdi, uint chunksize);
+
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_write_data_get_chunksize(ref ftdi_context ftdi, out uint chunksize);
+
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_set_latency_timer(ref ftdi_context ftdi, byte latency);
+
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_get_latency_timer(ref ftdi_context ftdi, out byte latency);
+		
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_enable_bitbang(ref ftdi_context ftdi, byte bitmask);
+
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_disable_bitbang(ref ftdi_context ftdi);
+		
+		[DllImport(LIBRARY_FILENAME)]
+		public static extern FT_STATUS ftdi_set_bitmode(ref ftdi_context ftdi, byte bitmask, FT_BIT_MODE mode);
 	}
 }

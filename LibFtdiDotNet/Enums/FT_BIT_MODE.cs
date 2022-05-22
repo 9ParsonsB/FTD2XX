@@ -6,7 +6,7 @@ namespace LibFtdiDotNet.Enums;
 /// Permitted bit mode values for FTDI devices.  For use with SetBitMode
 /// </summary>
 [Flags]
-public enum FT_BIT_MODES : byte
+public enum FT_BIT_MODE : byte
 {
     /// <summary>
     /// Reset bit mode

@@ -25,6 +25,10 @@ namespace LibFtdiDotNet
             mvarPurpose = purpose;
         }
     }
+    
+    public class DeviceAlreadyOpenedException : InvalidOperationException
+    {
+    }
 
     [Flags()]
     public enum DeviceOperation

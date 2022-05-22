@@ -152,19 +152,19 @@ namespace LibFtdiDotNet.Internal
             return Linux.Methods.ftdi_usb_close(ref ftdi);
         }
 
-        public static FT_STATUS ftdi_read_data(
-            ref ftdi_context /*struct ftdi_context*/ ftdi, IntPtr buf, int size)
+        public static unsafe FT_STATUS ftdi_read_data(
+            ref ftdi_context /*struct ftdi_context*/ ftdi, byte* buf, int size)
         {
             return Linux.Methods.ftdi_read_data(ref ftdi, buf, size);
         }
 
-        public static int ftdi_write_data(ref ftdi_context /*struct ftdi_context*/ ftdi, IntPtr buf,
+        public static unsafe FT_STATUS ftdi_write_data(ref ftdi_context /*struct ftdi_context*/ ftdi, byte* buf,
             int size)
         {
             return Linux.Methods.ftdi_write_data(ref ftdi, buf, size);
         }
 
-        public static unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context context, out ftdi_device_list list, uint vid, uint pid)
+        public static unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context context, out ftdi_device_list list, int vid, int pid)
         {
             list = new ftdi_device_list();
             FT_STATUS result;
@@ -199,6 +199,26 @@ namespace LibFtdiDotNet.Internal
         public static FT_STATUS ftdi_erase_eeprom(ref ftdi_context ftdi)
         {
             return Linux.Methods.ftdi_erase_eeprom(ref ftdi);
+        }
+        
+        public static FT_STATUS ftdi_enable_bitbang(ref ftdi_context ftdi, byte bitmask)
+        {
+            return Linux.Methods.ftdi_enable_bitbang(ref ftdi, bitmask);
+        }
+        
+        public static FT_STATUS ftdi_disable_bitbang(ref ftdi_context ftdi)
+        {
+            return Linux.Methods.ftdi_disable_bitbang(ref ftdi);
+        }
+        public static FT_STATUS ftdi_set_bitmode(ref ftdi_context ftdi, byte bitmask, FT_BIT_MODE bitMode)
+        {
+            return Linux.Methods.ftdi_set_bitmode(ref ftdi, bitmask, bitMode);
+        }
+
+        
+        public static FT_STATUS ftdi_usb_purge_buffers(ref ftdi_context ftdi)
+        {
+            return Linux.Methods.ftdi_usb_purge_buffers(ref ftdi);
         }
     }
 }

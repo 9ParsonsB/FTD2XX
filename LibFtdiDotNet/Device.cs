@@ -79,7 +79,7 @@ namespace LibFtdiDotNet
 		}
 
 		private BitsPerWord _bits = BitsPerWord.Eight;
-		private StopBits _stopBits = StopBits.One;
+		private StopBits _stopBits = StopBits.STOP_BIT_1;
 		private Parity _parity = Parity.None;
 
 		public void SetDataCharacteristics(BitsPerWord bits, StopBits stopBits, Parity parity)
