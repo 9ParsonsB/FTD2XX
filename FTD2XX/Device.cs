@@ -131,27 +131,27 @@ namespace FTD2XX
             }
         }
 
-		/*
+		
 
-		public static int GetDeviceCount()
-        {
-            int numDevs = 0;
-            Internal.Constants.FT_STATUS status = Internal.Methods.FT_ListDevices(ref numDevs, IntPtr.Zero, Internal.Constants.FT_LISTDEVICES.ListNumberOnly);
-            Internal.Methods.ftdi_status_to_exception(status, ref _H);
-            return numDevs;
-        }
-        public static Device[] GetDevices()
-        {
-            List<Device> devices = new List<Device>();
-            int count = GetDeviceCount();
-            for (uint i = 0; i < count; i++)
-            {
-                Device device = new Device(i);
-                devices.Add(device);
-            }
-            return devices.ToArray();
-        }
-        */
+		// public static int GetDeviceCount()
+  //       {
+  //           int numDevs = 0;
+  //           Internal.Constants.FT_STATUS status = Internal.Methods.FT_ListDevices(ref numDevs, IntPtr.Zero, Internal.Constants.FT_LISTDEVICES.ListNumberOnly);
+  //           Internal.Methods.ftdi_status_to_exception(status, ref _H);
+  //           return numDevs;
+  //       }
+        // public static Device[] GetDevices()
+        // {
+        //     List<Device> devices = new List<Device>();
+        //     int count = GetDeviceCount();
+        //     for (uint i = 0; i < count; i++)
+        //     {
+        //         Device device = new Device(i);
+        //         devices.Add(device);
+        //     }
+        //     return devices.ToArray();
+        // }
+        
 
 		/// <summary>
 		/// Closes the handle to this FTD2XX device.
