@@ -81,10 +81,10 @@ public class FtdiContext : IDisposable
         CheckRet(ftdi_usb_open(ref ftdi, vendor, product));
         deviceOpen = true;
     }
-    
+
     public FtdiContext(string description) : this()
     {
-        var ret = ftdi_usb_open_string(ref ftdi,description);
+        var ret = ftdi_usb_open_string(ref ftdi, description);
         CheckRet(ret);
         deviceOpen = true;
     }
@@ -109,12 +109,12 @@ public class FtdiContext : IDisposable
         {
             throw new DeviceAlreadyOpenedException();
         }
-        
+
         // TODO: dont force the use of exceptions for control flow
         CheckRet(ftdi_usb_open(ref ftdi, vendor, product));
         deviceOpen = true;
     }
-    
+
 
     /// <param name="description">can be a device node if prefixed by 'd:'</param>
     /// <exception cref="DeviceAlreadyOpenedException"></exception>
@@ -125,7 +125,7 @@ public class FtdiContext : IDisposable
         {
             throw new DeviceAlreadyOpenedException();
         }
-        
+
         // TODO: dont force the use of exceptions for control flow
         CheckRet(ftdi_usb_open_string(ref ftdi, description));
         deviceOpen = true;
@@ -141,24 +141,25 @@ public class FtdiContext : IDisposable
         set { CheckRet(ftdi_set_baudrate(ref ftdi, value)); }
     }
 
-    public uint ReadChunkSize
+    public unsafe uint ReadChunkSize
     {
         set { CheckRet(ftdi_read_data_set_chunksize(ref ftdi, value)); }
         get
         {
-            uint chunksize;
-            CheckRet(ftdi_read_data_get_chunksize(ref ftdi, out chunksize));
+            byte chunksize = 0;
+            CheckRet(ftdi_read_data_get_chunksize(ref ftdi, &chunksize));
+
             return chunksize;
         }
     }
 
-    public uint WriteChunkSize
+    public unsafe uint WriteChunkSize
     {
         set { CheckRet(ftdi_write_data_set_chunksize(ref ftdi, value)); }
         get
         {
             uint chunksize;
-            CheckRet(ftdi_write_data_get_chunksize(ref ftdi, out chunksize));
+            CheckRet(ftdi_write_data_get_chunksize(ref ftdi, &chunksize));
             return chunksize;
         }
     }
@@ -174,7 +175,7 @@ public class FtdiContext : IDisposable
         }
     }
 
-    public Interface Interface
+    public FtdiInterface FtdiInterface
     {
         set { CheckRet(ftdi_set_interface(ref ftdi, value)); }
     }
@@ -198,7 +199,7 @@ public class FtdiContext : IDisposable
         Console.WriteLine("{0}", ret);
         throw new Exception(Marshal.PtrToStringAnsi(str));
     }
-    
+
     internal void CheckRet(FT_STATUS ret)
     {
         if (ret >= 0)
@@ -249,7 +250,6 @@ public class FtdiContext : IDisposable
         return null;
     }
 
-
     public unsafe FT_STATUS ReadData(byte[] buf, int size)
     {
         FT_STATUS ret;
@@ -257,33 +257,30 @@ public class FtdiContext : IDisposable
         {
             ret = ftdi_read_data(ref ftdi, p, size);
         }
+
         CheckRet(ret);
         return ret;
     }
 
-
-    public unsafe FT_STATUS WriteData(byte[] buf, int size)
+    /// <returns>Data Written</returns>
+    public unsafe int WriteData(byte[] buf, int size)
     {
-        FT_STATUS ret;
+        int ret;
         fixed (byte* p = buf)
         {
-             ret = ftdi_write_data(ref ftdi, p, size);
+            ret = ftdi_write_data(ref ftdi, p, size);
         }
-        
+
         CheckRet(ret);
         return ret;
     }
 
-    [DllImport("libftdi1")]
-    internal static extern int ftdi_read_pins(ref ftdi_context ftdi, out byte pins);
-
-    public byte GetPins()
+    public unsafe byte GetPins()
     {
         byte pins;
-        CheckRet(ftdi_read_pins(ref ftdi, out pins));
+        CheckRet(ftdi_read_pins(ref ftdi, &pins));
         return pins;
     }
-
 
     public void EnableBitBang(byte bitmask)
     {
@@ -294,12 +291,11 @@ public class FtdiContext : IDisposable
     {
         CheckRet(ftdi_disable_bitbang(ref ftdi));
     }
-    
+
     public void SetBitMode(byte bitmask, FT_BIT_MODE mode)
     {
         CheckRet(ftdi_set_bitmode(ref ftdi, bitmask, mode));
     }
-    
 
     public void SetLineProperty(BitsPerWord bits, StopBits sbit, Parity parity)
     {
@@ -308,7 +304,7 @@ public class FtdiContext : IDisposable
 
     public unsafe Structs.LibUsb.Device[] GetDeviceList(int vendor, int product)
     {
-        List<Structs.LibUsb.Device> list = new ();
+        List<Structs.LibUsb.Device> list = new();
         ftdi_device_list devlist, d;
         ftdi_init(ref ftdi);
 
@@ -320,12 +316,12 @@ public class FtdiContext : IDisposable
         for (d = devlist; d.dev != IntPtr.Zero; d = *d.next)
         {
             // TODO: dispose?
-            list.Add( LibFtdiDotNet.Structs.LibUsb.Device.DangerousCreate(d.dev));
+            list.Add(LibFtdiDotNet.Structs.LibUsb.Device.DangerousCreate(d.dev));
         }
 
         ftdi_deinit(ref ftdi);
 
-        ftdi_list_free(&devlist);
+        ftdi_list_free(ref ftdi, &devlist);
 
         return list.ToArray();
     }
@@ -343,6 +339,5 @@ public class FtdiContext : IDisposable
 
     public void ListDevices()
     {
-        
     }
 }

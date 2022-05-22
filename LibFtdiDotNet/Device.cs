@@ -5,7 +5,6 @@ using LibFtdiDotNet.Structs;
 
 namespace LibFtdiDotNet
 {
-    // [DebuggerNonUserCode()]
     public class Device
     {
 		private static ftdi_context _H = new ftdi_context();
@@ -56,25 +55,25 @@ namespace LibFtdiDotNet
 			if (AutoFlush) return Flush();
 			return 0;
 		}
-		public int Flush()
+		public unsafe int Flush()
 		{
-			IntPtr ptr = Marshal.AllocHGlobal((int)mvarBuffer.Length);
+			var ptr = Marshal.AllocHGlobal((int)mvarBuffer.Length);
 			Marshal.Copy(mvarBuffer, 0, ptr, (int)mvarBuffer.Length);
-			int bytesWritten = Internal.Methods.ftdi_write_data(ref _H, ptr, mvarBuffer.Length);
+			var bytesWritten = Internal.Methods.ftdi_write_data(ref _H, (byte*)ptr, mvarBuffer.Length);
 
-			mvarBuffer = new byte[0];
+			mvarBuffer = Array.Empty<byte>();
 			return bytesWritten;
 		}
 
 		public void Reset()
 		{
-			FT_STATUS status = Internal.Methods.ftdi_usb_reset(ref _H);
+			var status = Internal.Methods.ftdi_usb_reset(ref _H);
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 
 		public void SetBaudRate(int baudRate)
 		{
-			FT_STATUS status = Internal.Methods.ftdi_set_baudrate(ref _H, baudRate);  // set baud rate
+			var status = Internal.Methods.ftdi_set_baudrate(ref _H, baudRate);  // set baud rate
 			Internal.Methods.ftdi_status_to_exception(status, ref _H);
 		}
 

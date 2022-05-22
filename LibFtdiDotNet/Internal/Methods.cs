@@ -158,13 +158,14 @@ namespace LibFtdiDotNet.Internal
             return Linux.Methods.ftdi_read_data(ref ftdi, buf, size);
         }
 
-        public static unsafe FT_STATUS ftdi_write_data(ref ftdi_context /*struct ftdi_context*/ ftdi, byte* buf,
+        public static unsafe int ftdi_write_data(ref ftdi_context /*struct ftdi_context*/ ftdi, byte* buf,
             int size)
         {
             return Linux.Methods.ftdi_write_data(ref ftdi, buf, size);
         }
 
-        public static unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context context, out ftdi_device_list list, int vid, int pid)
+        public static unsafe FT_STATUS ftdi_usb_find_all(ref ftdi_context context, out ftdi_device_list list, int vid,
+            int pid)
         {
             list = new ftdi_device_list();
             FT_STATUS result;
@@ -172,7 +173,7 @@ namespace LibFtdiDotNet.Internal
             {
                 result = Linux.Methods.ftdi_usb_find_all(ref context, p, vid, pid);
             }
-               
+
             return result;
         }
 
@@ -200,25 +201,74 @@ namespace LibFtdiDotNet.Internal
         {
             return Linux.Methods.ftdi_erase_eeprom(ref ftdi);
         }
-        
+
         public static FT_STATUS ftdi_enable_bitbang(ref ftdi_context ftdi, byte bitmask)
         {
             return Linux.Methods.ftdi_enable_bitbang(ref ftdi, bitmask);
         }
-        
+
         public static FT_STATUS ftdi_disable_bitbang(ref ftdi_context ftdi)
         {
             return Linux.Methods.ftdi_disable_bitbang(ref ftdi);
         }
+
         public static FT_STATUS ftdi_set_bitmode(ref ftdi_context ftdi, byte bitmask, FT_BIT_MODE bitMode)
         {
             return Linux.Methods.ftdi_set_bitmode(ref ftdi, bitmask, bitMode);
         }
 
-        
         public static FT_STATUS ftdi_usb_purge_buffers(ref ftdi_context ftdi)
         {
             return Linux.Methods.ftdi_usb_purge_buffers(ref ftdi);
+        }
+
+        public static FT_STATUS ftdi_read_data_set_chunksize(ref ftdi_context ftdi, uint chunkSize)
+        {
+            return Linux.Methods.ftdi_read_data_set_chunksize(ref ftdi, chunkSize);
+        }
+
+        public static unsafe FT_STATUS ftdi_read_data_get_chunksize(ref ftdi_context ftdi, byte* chunkSize)
+        {
+            return Linux.Methods.ftdi_read_data_get_chunksize(ref ftdi, chunkSize);
+        }
+
+        public static FT_STATUS ftdi_write_data_set_chunksize(ref ftdi_context ftdi, uint chunkSize)
+        {
+            return Linux.Methods.ftdi_write_data_set_chunksize(ref ftdi, chunkSize);
+        }
+
+        public static unsafe FT_STATUS ftdi_write_data_get_chunksize(ref ftdi_context ftdi, uint* chunkSize)
+        {
+            return Linux.Methods.ftdi_write_data_get_chunksize(ref ftdi, chunkSize);
+        }
+
+        public static FT_STATUS ftdi_set_latency_timer(ref ftdi_context ftdi, byte chunkSize)
+        {
+            return Linux.Methods.ftdi_set_latency_timer(ref ftdi, chunkSize);
+        }
+
+        public static unsafe FT_STATUS ftdi_get_latency_timer(ref ftdi_context ftdi, out byte latency)
+        {
+            latency = 0;
+            fixed (byte* p = &latency)
+            {
+                return Linux.Methods.ftdi_get_latency_timer(ref ftdi, p);
+            }
+        }
+
+        public static FT_STATUS ftdi_set_interface(ref ftdi_context ftdi, FtdiInterface ftdiInterface)
+        {
+            return Linux.Methods.ftdi_set_interface(ref ftdi, ftdiInterface);
+        }
+
+        public static unsafe FT_STATUS ftdi_read_pins(ref ftdi_context ftdi, byte* pins)
+        {
+            return Linux.Methods.ftdi_read_pins(ref ftdi, pins);
+        }
+        
+        public static unsafe FT_STATUS ftdi_list_free(ref ftdi_context ftdi, ftdi_device_list* devlist)
+        {
+            return Linux.Methods.ftdi_list_free(ref ftdi, devlist);
         }
     }
 }

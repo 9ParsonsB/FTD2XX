@@ -13,8 +13,6 @@ public class UnitTest1
 
         var devices = ftdiContext.GetDeviceList(0x0403, 0x6014);
 
-        using var usbContext = new UsbContext()
-        
         UsbDevice.OpenUsbDevice(registry => registry.Vid == 0x0403 && registry.Pid == 0x6014);
     }
 }
