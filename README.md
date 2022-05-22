@@ -9,4 +9,5 @@ Currently only support Linux.
 
 
 Forked from https://github.com/alcexhim/FTD2XX
-with code & insipration from https://github.com/coolnumber9/ftdi-dotNet-bindings
+
+With code & insipration from https://github.com/coolnumber9/ftdi-dotNet-bindings
