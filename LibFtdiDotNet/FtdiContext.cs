@@ -302,9 +302,17 @@ public class FtdiContext : IDisposable
         CheckRet(ftdi_set_line_property(ref ftdi, bits, sbit, parity));
     }
 
-    public unsafe Structs.LibUsb.Device[] GetDeviceList(int vendor, int product)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="vendor"></param>
+    /// <param name="product"></param>
+    /// <returns>Array of LibUsb Devices</returns>
+    /// <exception cref="Exception"></exception>
+    [Obsolete("Does not currently work")]
+    public unsafe IntPtr[] GetDeviceList(int vendor, int product)
     {
-        List<Structs.LibUsb.Device> list = new();
+        List<IntPtr> list = new();
         ftdi_device_list devlist, d;
         ftdi_init(ref ftdi);
 
@@ -312,12 +320,18 @@ public class FtdiContext : IDisposable
         {
             throw new Exception("ftdi_usb_find_all failed");
         }
-
-        for (d = devlist; d.dev != IntPtr.Zero; d = *d.next)
+        
+        d = devlist;
+        do
         {
+            d = *d.next;
+            if (d.dev == IntPtr.Zero && (IntPtr)d.next != IntPtr.Zero)
+            {
+                d = *d.next;
+            }
             // TODO: dispose?
-            list.Add(LibFtdiDotNet.Structs.LibUsb.Device.DangerousCreate(d.dev));
-        }
+            list.Add(d.dev);
+        } while ((IntPtr)d.next != IntPtr.Zero);
 
         ftdi_deinit(ref ftdi);
 
