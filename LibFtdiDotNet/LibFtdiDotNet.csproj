@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageId>LibFtdiDotNet</PackageId>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <RootNamespace>LibFtdiDotNet</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Properties" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
+    </ItemGroup>
+    
+</Project>
