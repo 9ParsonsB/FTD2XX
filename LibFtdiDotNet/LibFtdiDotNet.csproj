@@ -10,6 +10,15 @@
         <PackageId>LibFtdiDotNet</PackageId>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RootNamespace>LibFtdiDotNet</RootNamespace>
+        <Version>0.1</Version>
+        <Authors>Ben Parsons</Authors>
+        <Description>LibFtdi Bindings</Description>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/9ParsonsB/LibFtdiDotNet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/9ParsonsB/LibFtdiDotNet</PackageProjectUrl>
+        <PackageTags>FTDI;ftdi1,libftdi,ftd2xx</PackageTags>
+        <Title>LibFtdiDotNet</Title>
+        <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>

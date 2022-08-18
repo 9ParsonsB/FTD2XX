@@ -1,7 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTD2XX", "FTD2XX\FTD2XX.csproj", "{E735D457-50D8-4958-B68C-79617595B023}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibFtdiDotNet", "LibFtdiDotNet\LibFtdiDotNet.csproj", "{A3F1F6D7-5451-4554-A0A0-699D055AB16B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibFtdiDotNet.Tests", "LibFtdiDotNet.Tests\LibFtdiDotNet.Tests.csproj", "{3316C6A3-1B4F-48D7-9BAA-0852D5BBAD19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +10,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E735D457-50D8-4958-B68C-79617595B023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E735D457-50D8-4958-B68C-79617595B023}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E735D457-50D8-4958-B68C-79617595B023}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E735D457-50D8-4958-B68C-79617595B023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F1F6D7-5451-4554-A0A0-699D055AB16B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F1F6D7-5451-4554-A0A0-699D055AB16B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F1F6D7-5451-4554-A0A0-699D055AB16B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F1F6D7-5451-4554-A0A0-699D055AB16B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3316C6A3-1B4F-48D7-9BAA-0852D5BBAD19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3316C6A3-1B4F-48D7-9BAA-0852D5BBAD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3316C6A3-1B4F-48D7-9BAA-0852D5BBAD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3316C6A3-1B4F-48D7-9BAA-0852D5BBAD19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
